@@ -14,6 +14,7 @@ USER_DEFINED_APPS = [
     'apps.accounts',
     'apps.banners',
     'apps.common',
+    'apps.tests',
 ]
 
 THIRD_PARTY_APPS = [
@@ -21,6 +22,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'drf_yasg',
+    'django_filters',
 ]
 
 DJANGO_APPS = [
@@ -65,7 +67,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
