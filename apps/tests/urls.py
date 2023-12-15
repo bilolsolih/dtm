@@ -8,4 +8,5 @@ urlpatterns = [
     path('test_category/list/', views.TestCategoryListAPIView.as_view(), name='test_category_list'),
     path('subject/list/', views.SubjectListAPIView.as_view(), name='subject_list'),
     path('topic/list/', views.TopicListAPIView.as_view(), name='topic_list'),
+    path('question/list/', views.QuestionListAPIView.as_view(), name='question_list'),
 ]

@@ -13,6 +13,7 @@ class Letters(models.TextChoices):
 
 
 class QuestionType(models.Model):
+    subjects = models.ManyToManyField('tests.Subject', related_name='question_types', blank=True, verbose_name=_('Tegishli fanlar'))
     title = models.CharField(_('Savol turi'), max_length=128)
     prompt = models.CharField(_('Savol bayoni'), max_length=256)
 
@@ -27,7 +28,9 @@ class QuestionType(models.Model):
 class Question(TimeStampedModel):
     subject = models.ForeignKey('tests.Subject', related_name='questions', on_delete=models.PROTECT, verbose_name=_('Fan'))
     topic = models.ForeignKey('tests.Topic', related_name='questions', on_delete=models.PROTECT, verbose_name=_('Mavzu'))
+    type = models.ForeignKey('tests.QuestionType', related_name='questions', on_delete=models.PROTECT, verbose_name=_('Savol turi'))
     question = models.TextField(_('Savol'))
+    picture = models.ImageField(_('Picture'), upload_to='images/tests/questions/%Y/%m/', blank=True, null=True)
 
     class Meta:
         verbose_name = _('Savol')
@@ -38,7 +41,7 @@ class Question(TimeStampedModel):
             raise ValidationError({'topic': 'Fanda bunday mavzu mavjud emas.'})
 
     def __str__(self):
-        pass
+        return f'{self.subject}'
 
 
 class Choice(models.Model):

@@ -16,14 +16,11 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     email = models.EmailField(_('Email'), unique=True, blank=True, null=True)
     is_verified = models.BooleanField(_('Tekshirilganlik statusi'), default=False)
     is_active = models.BooleanField(_('Faollik statusi'), default=True)
-    USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
 
     # PERSONAL INFO #
-    first_name = models.CharField(_('Ism'), max_length=128)
-    middle_name = models.CharField(_('Sharif'), max_length=128)
-    last_name = models.CharField(_('Familya'), max_length=128)
-    nickname = models.CharField(_('Laqab'), max_length=128, blank=True, null=True)
+    full_name = models.CharField(_('Ism Sharif'), max_length=128)
     photo = models.ImageField(_('Akkaunt uchun rasm'), upload_to='images/accounts/%Y/%m/', blank=True, null=True)
     birthdate = models.DateField(_('Tug\'ilish sanasi'), null=True)
     gender = models.CharField(_('Erkak yoki Ayol'), max_length=6, choices=choices.GENDERS)
@@ -43,19 +40,15 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
         indexes = [
             models.Index(fields=['phone_number']),
             models.Index(fields=['username']),
-            models.Index(fields=['first_name', 'last_name', 'middle_name'])
+            models.Index(fields=['full_name'])
         ]
 
     @property
     def get_age(self):
         return timezone.now() - self.birthdate
 
-    @property
-    def get_full_name(self):
-        return f"{self.last_name} {self.first_name}"
-
     def __str__(self):
-        return f"{self.type} - {self.get_full_name}"
+        return f"{self.type} - {self.full_name}"
 
 
 __all__ = ['User']
