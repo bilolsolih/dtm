@@ -46,7 +46,7 @@ class Question(TimeStampedModel):
 
 class Choice(models.Model):
     question = models.ForeignKey('tests.Question', related_name='choices', on_delete=models.CASCADE, verbose_name=_('Savol'))
-    letter = models.CharField(_('Variant'), choices=Letters.choices)
+    letter = models.CharField(_('Variant'), max_length=1, choices=Letters.choices)
     choice = models.CharField(_('Javob'), max_length=128)
     is_correct = models.BooleanField(_('To\'g\'ri javobmi?'), default=False)
 
