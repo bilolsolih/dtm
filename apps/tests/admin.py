@@ -50,6 +50,7 @@ class QuestionTypeAdmin(admin.ModelAdmin):
 
 class ChoiceInQuestion(admin.TabularInline):
     model = Choice
+    extra = 4
 
 
 @admin.register(Question)
